@@ -1,8 +1,21 @@
-import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router"
+import { createFileRoute, useNavigate, useParams, useRouter } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
 import { AdminForm } from "@/components/admin/form"
+import { AdminShell } from "@/components/admin/shell.tsx"
 
 export const Route = createFileRoute("/admin/communiques/$id")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !localStorage.getItem("auth_token")) {
+      throw new Error("Non authentifié")
+    }
+  },
+  errorComponent: () => {
+    const router = useRouter()
+    if (typeof window !== "undefined" && !localStorage.getItem("auth_token")) {
+      router.navigate({ to: "/admin/login" })
+    }
+    return null
+  },
   component: AdminCommuniqueForm,
 })
 
@@ -43,13 +56,15 @@ function AdminCommuniqueForm() {
   }
 
   return (
-    <AdminForm
-      title="Communiqué"
-      item={item}
-      fields={fields}
-      onSubmit={handleSubmit}
-      backPath="/admin/communiques"
-      loading={loading}
-    />
+    <AdminShell>
+      <AdminForm
+        title="Communiqué"
+        item={item}
+        fields={fields}
+        onSubmit={handleSubmit}
+        backPath="/admin/communiques"
+        loading={loading}
+      />
+    </AdminShell>
   )
 }

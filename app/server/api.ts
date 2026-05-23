@@ -289,6 +289,30 @@ export async function handleRequest(req: Request, method: string, pathname: stri
       return json({ gallery, media })
     }
 
+    if (galleryMatch && method === "PUT") {
+      const user = await getAuthUser()
+      if (!user) return json({ error: "Non autorisé" }, 401)
+      const gallery = db.galleries.find((g: any) => g.id === galleryMatch[1])
+      if (!gallery) return json({ error: "Galerie non trouvée" }, 404)
+      const { title, description, mediaIds } = body
+      if (title !== undefined) gallery.title = title
+      if (description !== undefined) gallery.description = description
+      if (mediaIds !== undefined) gallery.mediaIds = mediaIds
+      gallery.updatedAt = new Date().toISOString()
+      saveDb(db)
+      return json({ gallery })
+    }
+
+    if (galleryMatch && method === "DELETE") {
+      const user = await getAuthUser()
+      if (!user) return json({ error: "Non autorisé" }, 401)
+      const idx = db.galleries.findIndex((g: any) => g.id === galleryMatch[1])
+      if (idx === -1) return json({ error: "Galerie non trouvée" }, 404)
+      db.galleries.splice(idx, 1)
+      saveDb(db)
+      return json({ success: true })
+    }
+
     return json({ error: "Route non trouvée" }, 404)
   } catch (error: any) {
     return json({ error: error.message }, 500)

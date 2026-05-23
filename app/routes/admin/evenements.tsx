@@ -1,8 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
 import { AdminList } from "@/components/admin/list"
+import { AdminShell } from "@/components/admin/shell.tsx"
 
 export const Route = createFileRoute("/admin/evenements")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !localStorage.getItem("auth_token")) {
+      throw new Error("Non authentifié")
+    }
+  },
+  errorComponent: () => {
+    const router = useRouter()
+    if (typeof window !== "undefined" && !localStorage.getItem("auth_token")) {
+      router.navigate({ to: "/admin/login" })
+    }
+    return null
+  },
   component: AdminEventsList,
 })
 
@@ -26,18 +39,20 @@ function AdminEventsList() {
   }
 
   return (
-    <AdminList
-      title="Événements"
-      items={items}
-      columns={[
-        { key: "title", label: "Titre" },
-        { key: "location", label: "Lieu" },
-        { key: "startDate", label: "Date", render: (v: string) => v ? new Date(v).toLocaleDateString("fr") : "-" },
-        { key: "status", label: "Statut" },
-      ]}
-      basePath="/admin/evenements"
-      loading={loading}
-      onDelete={handleDelete}
-    />
+    <AdminShell>
+      <AdminList
+        title="Événements"
+        items={items}
+        columns={[
+          { key: "title", label: "Titre" },
+          { key: "location", label: "Lieu" },
+          { key: "startDate", label: "Date", render: (v: string) => v ? new Date(v).toLocaleDateString("fr") : "-" },
+          { key: "status", label: "Statut" },
+        ]}
+        basePath="/admin/evenements"
+        loading={loading}
+        onDelete={handleDelete}
+      />
+    </AdminShell>
   )
 }

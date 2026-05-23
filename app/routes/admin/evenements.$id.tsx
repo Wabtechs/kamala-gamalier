@@ -1,8 +1,21 @@
-import { createFileRoute, useNavigate, useParams } from "@tanstack/react-router"
+import { createFileRoute, useNavigate, useParams, useRouter } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
 import { AdminForm } from "@/components/admin/form"
+import { AdminShell } from "@/components/admin/shell.tsx"
 
 export const Route = createFileRoute("/admin/evenements/$id")({
+  beforeLoad: () => {
+    if (typeof window !== "undefined" && !localStorage.getItem("auth_token")) {
+      throw new Error("Non authentifié")
+    }
+  },
+  errorComponent: () => {
+    const router = useRouter()
+    if (typeof window !== "undefined" && !localStorage.getItem("auth_token")) {
+      router.navigate({ to: "/admin/login" })
+    }
+    return null
+  },
   component: AdminEventForm,
 })
 
@@ -45,13 +58,15 @@ function AdminEventForm() {
   }
 
   return (
-    <AdminForm
-      title="Événement"
-      item={item}
-      fields={fields}
-      onSubmit={handleSubmit}
-      backPath="/admin/evenements"
-      loading={loading}
-    />
+    <AdminShell>
+      <AdminForm
+        title="Événement"
+        item={item}
+        fields={fields}
+        onSubmit={handleSubmit}
+        backPath="/admin/evenements"
+        loading={loading}
+      />
+    </AdminShell>
   )
 }
