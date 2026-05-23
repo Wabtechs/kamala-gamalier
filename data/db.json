@@ -1,7 +1,7 @@
 {
   "articles": [
     {
-      "id": "ac87828c-92dc-4067-9452-e7482735c4ee",
+      "id": "d9596acb-d731-4f1c-893c-34dbdda7be2b",
       "title": "Bienvenue sur mon site officiel",
       "slug": "bienvenue",
       "excerpt": "Un message de bienvenue et de presentation de ma vision pour la RDC.",
@@ -17,7 +17,7 @@
   "communiques": [],
   "events": [
     {
-      "id": "b89ad3ac-790f-46a4-831f-dbe4b6fb86c1",
+      "id": "3ec413ae-6b4e-4992-96a6-1ac7b8aaf022",
       "title": "Conference de presse",
       "slug": "conference-presse-2026",
       "description": "Conference de presse sur la situation socio-politique en RDC",
@@ -37,21 +37,21 @@
   "newsletter": [],
   "categories": [
     {
-      "id": "2c0f2a76-5814-4b54-88aa-4c3444f77f7e",
+      "id": "bb48751c-d0f5-4578-9af3-7c311bb7ab9c",
       "name": "Politique",
       "slug": "politique",
       "createdAt": "2026-01-01T00:00:00.000Z",
       "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "id": "3f9dfd84-bb7e-416f-8cea-b45240905e56",
+      "id": "a091b550-9d7e-4ea1-b5ab-a6861801ca08",
       "name": "Juridique",
       "slug": "juridique",
       "createdAt": "2026-01-01T00:00:00.000Z",
       "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "id": "076467fe-b942-42be-877e-cbbdd3eaa1e1",
+      "id": "0d08f0e6-56ce-46a3-ab60-88614abc2996",
       "name": "Academique",
       "slug": "academique",
       "createdAt": "2026-01-01T00:00:00.000Z",
@@ -67,5 +67,7 @@
       "role": "SUPER_ADMIN"
     }
   ],
+  "media": [],
+  "galleries": [],
   "settings": {}
 }

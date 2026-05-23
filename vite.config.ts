@@ -67,8 +67,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    noDiscovery: true,
-    include: [],
+    include: ["react", "react-dom", "react/jsx-dev-runtime", "react/jsx-runtime", "@tanstack/react-router", "@tanstack/react-start", "@tanstack/react-start/client"],
   },
   server: {
     port: 3000,

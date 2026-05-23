@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import { Button, Input, Label, Textarea, Select, SelectTrigger, SelectValue, SelectContent, SelectItem, Card, CardContent, CardHeader, CardTitle } from "@/components/ui"
+import { Button, Input, Label, Textarea, Select, Card, CardContent, CardHeader, CardTitle } from "@/components/ui"
 import { Save, ArrowLeft } from "lucide-react"
 
 interface AdminFormProps {
@@ -43,13 +43,14 @@ export function AdminForm({ title, item, fields, onSubmit, backPath, loading }: 
                     required
                   />
                 ) : field.type === "select" ? (
-                  <Select name={field.key} defaultValue={item[field.key] || field.options?.[0]?.value}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {field.options?.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                      ))}
-                    </SelectContent>
+                  <Select
+                    name={field.key}
+                    defaultValue={item[field.key] || field.options?.[0]?.value}
+                    className="w-full"
+                  >
+                    {field.options?.map((opt) => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
                   </Select>
                 ) : field.type === "date" ? (
                   <Input

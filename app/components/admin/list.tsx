@@ -22,7 +22,7 @@ export function AdminList({ title, items, columns, basePath, loading, onDelete }
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">{title}</h1>
-        <Link to={`${basePath}/new`}>
+        <Link to={`${basePath}/new` as any}>
           <Button><Plus className="h-4 w-4 mr-2" />Nouveau</Button>
         </Link>
       </div>
@@ -52,7 +52,7 @@ export function AdminList({ title, items, columns, basePath, loading, onDelete }
                   ))}
                   <td className="p-3 text-sm text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <Link to={`${basePath}/${item.id}`}>
+                      <Link to={`${basePath}/${item.id}` as any}>
                         <Button variant="ghost" size="icon"><Pencil className="h-4 w-4" /></Button>
                       </Link>
                       {onDelete && (

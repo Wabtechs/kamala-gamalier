@@ -65,6 +65,8 @@ const db = {
       role: "SUPER_ADMIN",
     },
   ],
+  media: [],
+  galleries: [],
   settings: {},
 }
 

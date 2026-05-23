@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
-import appCss from "@/styles/globals.css?url";
+import "@/styles/globals.css"
 
 const queryClient = new QueryClient();
 
@@ -23,7 +23,6 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico" },
     ],
   }),

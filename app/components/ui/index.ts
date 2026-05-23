@@ -11,10 +11,7 @@ export { Avatar, AvatarImage, AvatarFallback } from "./avatar"
 export { Separator } from "./separator"
 export {
   Dialog,
-  DialogPortal,
-  DialogOverlay,
   DialogTrigger,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogFooter,

@@ -14,24 +14,37 @@ interface Store {
   newsletter: any[]
   categories: any[]
   users: any[]
+  media: any[]
+  galleries: any[]
   settings: Record<string, string>
+}
+
+function getDefaults(): Store {
+  return {
+    articles: [],
+    communiques: [],
+    events: [],
+    contacts: [],
+    newsletter: [],
+    categories: [],
+    users: [ADMIN_CREDENTIALS],
+    media: [],
+    galleries: [],
+    settings: {},
+  }
 }
 
 function loadDb(): Store {
   try {
     const data = fs.readFileSync(DB_PATH, "utf-8")
-    return JSON.parse(data)
-  } catch {
-    const initial: Store = {
-      articles: [],
-      communiques: [],
-      events: [],
-      contacts: [],
-      newsletter: [],
-      categories: [],
-      users: [ADMIN_CREDENTIALS],
-      settings: {},
+    const parsed = JSON.parse(data)
+    const defaults = getDefaults()
+    for (const key of Object.keys(defaults)) {
+      if (!(key in parsed)) (parsed as any)[key] = (defaults as any)[key]
     }
+    return parsed
+  } catch {
+    const initial: Store = getDefaults()
     saveDb(initial)
     return initial
   }
@@ -210,7 +223,70 @@ export async function handleRequest(req: Request, method: string, pathname: stri
       const uploadDir = path.resolve(__dirname, "../../public/uploads")
       if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true })
       fs.writeFileSync(path.join(uploadDir, filename), Buffer.from(matches[2], "base64"))
-      return json({ url: `/uploads/${filename}`, name: filename })
+      const mediaItem = {
+        id: crypto.randomUUID(),
+        url: `/uploads/${filename}`,
+        name: name,
+        filename,
+        mime: matches[1],
+        size: Buffer.from(matches[2], "base64").length,
+        authorId: user.id,
+        createdAt: new Date().toISOString(),
+      }
+      db.media.push(mediaItem)
+      saveDb(db)
+      return json({ url: `/uploads/${filename}`, name: filename, media: mediaItem })
+    }
+
+    // GET /api/media - list all media
+    if (pathname === "/api/media" && method === "GET") {
+      return json({ media: db.media })
+    }
+
+    // DELETE /api/media/:id
+    const mediaId = pathname.match(/^\/api\/media\/(.+)$/)?.[1]
+    if (mediaId && method === "DELETE") {
+      const user = await getAuthUser()
+      if (!user) return json({ error: "Non autorisé" }, 401)
+      const idx = db.media.findIndex((m: any) => m.id === mediaId)
+      if (idx === -1) return json({ error: "Fichier non trouvé" }, 404)
+      const filePath = path.resolve(__dirname, "../../public", db.media[idx].url.replace(/^\//, ""))
+      try { fs.unlinkSync(filePath) } catch {}
+      db.media.splice(idx, 1)
+      saveDb(db)
+      return json({ success: true })
+    }
+
+    // Galleries CRUD
+    if (pathname === "/api/galleries" && method === "GET") {
+      return json({ galleries: db.galleries })
+    }
+
+    if (pathname === "/api/galleries" && method === "POST") {
+      const user = await getAuthUser()
+      if (!user) return json({ error: "Non autorisé" }, 401)
+      const { title, description, mediaIds } = body
+      if (!title) return json({ error: "Titre requis" }, 400)
+      const gallery = {
+        id: crypto.randomUUID(),
+        title,
+        description: description || "",
+        mediaIds: mediaIds || [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+      db.galleries.push(gallery)
+      saveDb(db)
+      return json({ gallery }, 201)
+    }
+
+    // Gallery detail with resolved media
+    const galleryMatch = pathname.match(/^\/api\/galleries\/(.+)$/)
+    if (galleryMatch && method === "GET") {
+      const gallery = db.galleries.find((g: any) => g.id === galleryMatch[1])
+      if (!gallery) return json({ error: "Galerie non trouvée" }, 404)
+      const media = db.media.filter((m: any) => gallery.mediaIds.includes(m.id))
+      return json({ gallery, media })
     }
 
     return json({ error: "Route non trouvée" }, 404)
