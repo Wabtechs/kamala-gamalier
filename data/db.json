@@ -1,0 +1,71 @@
+{
+  "articles": [
+    {
+      "id": "ac87828c-92dc-4067-9452-e7482735c4ee",
+      "title": "Bienvenue sur mon site officiel",
+      "slug": "bienvenue",
+      "excerpt": "Un message de bienvenue et de presentation de ma vision pour la RDC.",
+      "content": "Chers compatriotes, chers visiteurs,\n\nC'est avec une grande joie que je vous accueille sur mon site officiel. Ce site a pour vocation de vous informer sur mon parcours, mes engagements et ma vision pour notre cher pays, la Republique Democratique du Congo.\n\nA travers ces pages, vous decouvrirez mon cheminement academique, mon parcours juridique et mon implication socio-politique. Je souhaite que ce lieu d'echange et de partage puisse contribuer au debat d'idees et a la construction d'un Congo meilleur.\n\nN'hesitez pas a me contacter pour toute question ou suggestion.\n\nBien cordialement,\nKamala Musavuli Gamalier",
+      "status": "PUBLISHED",
+      "featuredImage": null,
+      "authorId": "1",
+      "publishedAt": "2026-01-15T08:00:00.000Z",
+      "createdAt": "2026-01-15T08:00:00.000Z",
+      "updatedAt": "2026-01-15T08:00:00.000Z"
+    }
+  ],
+  "communiques": [],
+  "events": [
+    {
+      "id": "b89ad3ac-790f-46a4-831f-dbe4b6fb86c1",
+      "title": "Conference de presse",
+      "slug": "conference-presse-2026",
+      "description": "Conference de presse sur la situation socio-politique en RDC",
+      "content": null,
+      "startDate": "2026-06-15T10:00:00.000Z",
+      "endDate": "2026-06-15T12:00:00.000Z",
+      "location": "Kinshasa",
+      "address": "Hotel Pullman, Kinshasa",
+      "imageUrl": null,
+      "status": "PUBLISHED",
+      "authorId": "1",
+      "createdAt": "2026-01-20T08:00:00.000Z",
+      "updatedAt": "2026-01-20T08:00:00.000Z"
+    }
+  ],
+  "contacts": [],
+  "newsletter": [],
+  "categories": [
+    {
+      "id": "2c0f2a76-5814-4b54-88aa-4c3444f77f7e",
+      "name": "Politique",
+      "slug": "politique",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3f9dfd84-bb7e-416f-8cea-b45240905e56",
+      "name": "Juridique",
+      "slug": "juridique",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "076467fe-b942-42be-877e-cbbdd3eaa1e1",
+      "name": "Academique",
+      "slug": "academique",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@kamalagamalier.cd",
+      "password": "fbc7176e343546756b582b31729b84ec7c001ca208faac07321ed045173bee90c059ac5e26aa4439277fe485b1fcc712349c94aa064ef91fa9114a374118bc6b",
+      "name": "Administrateur",
+      "role": "SUPER_ADMIN"
+    }
+  ],
+  "settings": {}
+}

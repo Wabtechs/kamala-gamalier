@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+public/uploads/images/*
+!public/uploads/images/.gitkeep
+public/uploads/documents/*
+!public/uploads/documents/.gitkeep
+routeTree.gen.ts
