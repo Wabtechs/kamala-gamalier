@@ -20,7 +20,7 @@ function AdminArticlesList() {
   useEffect(() => { load() }, [])
 
   const handleDelete = async (id: string) => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("auth_token")
     await fetch(`/api/articles/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } })
     await load()
   }

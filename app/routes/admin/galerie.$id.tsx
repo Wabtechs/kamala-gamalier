@@ -33,7 +33,7 @@ function AdminGalleryForm() {
 
   const handleSubmit = async () => {
     setLoading(true)
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("auth_token")
     if (isNew) {
       await fetch("/api/galleries", {
         method: "POST",
@@ -51,7 +51,7 @@ function AdminGalleryForm() {
     setUploading(true)
     const reader = new FileReader()
     reader.onload = async () => {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("auth_token")
       const res = await fetch("/api/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },

@@ -30,7 +30,7 @@ function AdminCommuniqueForm() {
 
   const handleSubmit = async (data: any) => {
     setLoading(true)
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("auth_token")
     const method = isNew ? "POST" : "PUT"
     const url = isNew ? "/api/communiques" : `/api/communiques/${id}`
     await fetch(url, {

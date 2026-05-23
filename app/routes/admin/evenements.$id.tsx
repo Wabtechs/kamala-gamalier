@@ -32,7 +32,7 @@ function AdminEventForm() {
 
   const handleSubmit = async (data: any) => {
     setLoading(true)
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("auth_token")
     const method = isNew ? "POST" : "PUT"
     const url = isNew ? "/api/evenements" : `/api/evenements/${id}`
     await fetch(url, {

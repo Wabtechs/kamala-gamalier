@@ -28,7 +28,7 @@ function AdminMedia() {
     setUploading(true)
     const reader = new FileReader()
     reader.onload = async () => {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("auth_token")
       await fetch("/api/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -41,7 +41,7 @@ function AdminMedia() {
   }
 
   const handleDelete = async (id: string) => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("auth_token")
     await fetch(`/api/media/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } })
     await load()
   }
